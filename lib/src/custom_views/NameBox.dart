@@ -12,7 +12,7 @@ class NameBox extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(color: Colors.lightBlueAccent),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(18.0),
         child: Text(name),
       ),
     );
