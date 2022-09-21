@@ -6,14 +6,17 @@ import 'package:flutter_chat/src/custom_views/RFInputText2.dart';
 class App2 extends StatelessWidget{
   App2({Key? key}) : super(key:key);
 
-  final myControllerInput1 = TextEditingController();
-  final myControllerInput2 = TextEditingController();
-  final myControllerInput3 = TextEditingController();
+  RFInputText2 input1 = RFInputText2();
+  RFInputText2 input2 = RFInputText2();
+  RFInputText2 input3 = RFInputText2();
 
 
   void btn1Pressed(){
-    print("------------->>>>>>>>>>>>>>>> HOLA!!!!! "+myControllerInput1.text);
 
+    print("------------->>>>>>>>>>>>>>>> HOLA!!!!! "+input1.getText());
+    print("------------->>>>>>>>>>>>>>>> HOLA!!!!! "+input2.getText());
+    print("------------->>>>>>>>>>>>>>>> HOLA!!!!! "+input3.getText());
+    //myControllerInput1.clear();
   }
 
   @override
@@ -29,9 +32,9 @@ class App2 extends StatelessWidget{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              RFInputText2(myController: myControllerInput1),
-              RFInputText2(myController: myControllerInput2),
-              RFInputText2(myController: myControllerInput3),
+              input1,
+              input2,
+              input3,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
