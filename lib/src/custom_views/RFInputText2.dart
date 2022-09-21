@@ -19,6 +19,9 @@ class RFInputText2 extends StatelessWidget{
       controller: myController,
       cursorColor: Colors.deepOrange,
       maxLength: 20,
+      onChanged: (String s){
+        print("------------------>>>>>>>>>>>>>>>>>  "+s);
+      },
       decoration: InputDecoration(
         icon: Icon(Icons.sailing),
         labelText: 'RF ',
