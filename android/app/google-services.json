@@ -29,6 +29,13 @@
             {
               "client_id": "171344911356-uc487pccb33g0qf3qnflf37rn6eb6ikv.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "171344911356-6afksid6jjv75e12tq16815kk4jfgam7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.reyfernando6.flutterChat"
+              }
             }
           ]
         }

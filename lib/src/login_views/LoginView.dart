@@ -16,7 +16,6 @@ class LoginView extends StatelessWidget{
 
   void loginPressed(String emailAddress, String password, BuildContext context) async{
     try {
-
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailAddress,
           password: password
@@ -24,6 +23,7 @@ class LoginView extends StatelessWidget{
       print("ME HE LOGEADO!");
       Navigator.of(context).popAndPushNamed('/home');
     } on FirebaseAuthException catch (e) {
+
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
       } else if (e.code == 'wrong-password') {

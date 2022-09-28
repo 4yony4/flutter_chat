@@ -4,7 +4,7 @@ import 'package:flutter_chat/src/App.dart';
 import 'package:flutter_chat/src/App2.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_chat/src/login_views/LoginView2.dart';
-import 'package:vrzlib/vrzlib.dart';
+
 import 'firebase_options.dart';
 
 void main() async{

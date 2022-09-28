@@ -16,7 +16,7 @@ class _HomeViewState extends State<HomeView>{
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login Phone'),
+        title: Text('Chatdar'),
       ),
       //backgroundColor: Colors.orangeAccent,
       body: Center(

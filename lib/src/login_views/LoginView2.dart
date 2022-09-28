@@ -7,17 +7,18 @@ class LoginView2 extends StatelessWidget {
   LoginView2({Key? key}) : super(key: key);
 
   RFInputText2 input1 = RFInputText2(sTitulo: "Usuario",);
-  RFInputText2 input2 = RFInputText2(sTitulo: "Password",);
+  RFInputText2 input2 = RFInputText2(sTitulo: "Password",blIsPassword: true,);
 
 
 
-  void btn1Pressed() async {
+  void btn1Pressed(BuildContext context) async {
     try {
       final credential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
+          .signInWithEmailAndPassword(
         email: input1.getText(),
         password: input2.getText(),
       );
+      Navigator.of(context).popAndPushNamed("/Home");
     } on FirebaseAuthException catch (e) {
       print("------->>>>   ERROR DE CREACION DE USUARIO " + e.code);
       if (e.code == 'weak-password') {
@@ -53,7 +54,9 @@ class LoginView2 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   OutlinedButton(
-                    onPressed: btn1Pressed,
+                    onPressed: (){
+                      btn1Pressed(context);
+                    },
                     child: Text("BOTON1"),
                   ),
                   OutlinedButton(

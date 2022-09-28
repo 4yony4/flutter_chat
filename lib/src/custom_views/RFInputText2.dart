@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 
 class RFInputText2 extends StatelessWidget{
   final String sTitulo;
+  final bool blIsPassword;
   final TextEditingController myController = TextEditingController(text: "");
 
-  RFInputText2({Key? key, this.sTitulo=""}) : super(key:key);
+  RFInputText2({Key? key, this.sTitulo="", this.blIsPassword=false}) : super(key:key);
 
 
   String getText(){
@@ -19,6 +20,7 @@ class RFInputText2 extends StatelessWidget{
 
 
     return TextFormField(
+      obscureText: blIsPassword,
       controller: myController,
       cursorColor: Colors.deepOrange,
       maxLength: 20,
