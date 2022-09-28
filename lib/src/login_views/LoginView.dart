@@ -9,16 +9,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginView extends StatelessWidget{
 
+
+
   const LoginView({Key? key}) : super(key:key);
 
 
-  void loginPressed(String emailAddress, String password) async{
+  void loginPressed(String emailAddress, String password, BuildContext context) async{
     try {
+
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailAddress,
           password: password
       );
       print("ME HE LOGEADO!");
+      Navigator.of(context).popAndPushNamed('/home');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -26,17 +30,20 @@ class LoginView extends StatelessWidget{
         print('Wrong password provided for that user.');
       }
     }
-    
-
-    
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     //throw UnimplementedError();
-    String sUsername="yony@yony.com";
-    String sPassword="1234567890";
+    RFInputText inputUser=RFInputText(iLongitudPalabra: 20,
+      sHelperText: "Escriba su usuario",
+      sTitulo:"Usuario",icIzquierdo: Icon(Icons.account_circle_outlined),);
+
+    RFInputText inputPass=RFInputText(iLongitudPalabra: 20,
+      sHelperText: "Escriba su contraseña",
+      sTitulo:"Cotraseña",icIzquierdo: Icon(Icons.password),blIsPasswordInput: true,);
+
       return Scaffold(
         appBar: AppBar(
           title: Text('Login'),
@@ -46,21 +53,16 @@ class LoginView extends StatelessWidget{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              RFInputText(sValorInicial:sUsername ,iLongitudPalabra: 20,
-                sHelperText: "Escriba su usuario",
-                  sTitulo:"Usuario",icIzquierdo: Icon(Icons.account_circle_outlined),),
-              RFInputText(sValorInicial:sPassword,iLongitudPalabra: 20,
-                sHelperText: "Escriba su contraseña",
-                sTitulo:"Cotraseña",icIzquierdo: Icon(Icons.password),),
-
+              inputUser,
+              inputPass,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   OutlinedButton(
                     onPressed: () {
                       // Respond to button press
-                      print("------>>>>>>>  LOGIN $sUsername $sPassword");
-                      loginPressed(sUsername,sPassword);
+                      print("------>>>>>>>  LOGIN "+inputUser.getText()+"  "+inputPass.getText());
+                      loginPressed(inputUser.getText(),inputPass.getText(),context);
                     },
                     child: Text("Login"),
                   ),

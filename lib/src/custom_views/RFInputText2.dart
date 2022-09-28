@@ -4,10 +4,11 @@
 import 'package:flutter/material.dart';
 
 class RFInputText2 extends StatelessWidget{
+  final String sTitulo;
+  final TextEditingController myController = TextEditingController(text: "");
 
-  RFInputText2({Key? key}) : super(key:key);
+  RFInputText2({Key? key, this.sTitulo=""}) : super(key:key);
 
-  final TextEditingController myController = TextEditingController();
 
   String getText(){
     return myController.text;
@@ -15,6 +16,8 @@ class RFInputText2 extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+
+
     return TextFormField(
       controller: myController,
       cursorColor: Colors.deepOrange,
@@ -24,7 +27,7 @@ class RFInputText2 extends StatelessWidget{
       },
       decoration: InputDecoration(
         icon: Icon(Icons.sailing),
-        labelText: 'RF ',
+        labelText: sTitulo,
         labelStyle: TextStyle(
           color: Color(0xFF6200EE),
         ),
