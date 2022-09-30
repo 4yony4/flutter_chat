@@ -2,6 +2,7 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget{
@@ -15,6 +16,7 @@ class HomeView extends StatefulWidget{
 class _HomeViewState extends State<HomeView>{
 
   FirebaseFirestore db = FirebaseFirestore.instance;
+  String sNombre="AQUI IRA EL NOMBRE";
 
   @override
   void initState() {
@@ -24,14 +26,22 @@ class _HomeViewState extends State<HomeView>{
   }
 
   void getProfile() async{
-    await db.collection("perfiles").doc("nLc7Fto81vgOOssLnSEIqDp0cHq2").get().then(
+    final docRef = db.collection("perfiles").doc(FirebaseAuth.instance.currentUser?.uid);
+
+    await docRef.get().then(
           (DocumentSnapshot doc) {
         final data = doc.data() as Map<String, dynamic>;
-        print("--------->>>>>>>>>>>>>>>>  "+data.toString());
+        print("--------->>>>>>>>>>>>>>>>  "+data?['name']);
+
+        setState(() {
+          sNombre=data?['name'];
+        });
         // ...
       },
       onError: (e) => print("Error getting document: $e"),
     );
+
+
 
   }
 
@@ -49,7 +59,7 @@ class _HomeViewState extends State<HomeView>{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("HOME VIEW BIENVENIDO: ")
+            Text("HOME VIEW BIENVENIDO: "+sNombre)
           ],
         ),
       ),
