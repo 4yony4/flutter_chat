@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../custom_views/RFInputText2.dart';
+import '../singleton/DataHolder.dart';
 
 class LoginView2 extends StatelessWidget {
   LoginView2({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class LoginView2 extends StatelessWidget {
         email: input1.getText(),
         password: input2.getText(),
       );
-      Navigator.of(context).popAndPushNamed("/Home");
+      Navigator.of(context).popAndPushNamed("/OnBoarding");
     } on FirebaseAuthException catch (e) {
       print("------->>>>   ERROR DE CREACION DE USUARIO " + e.code);
       if (e.code == 'weak-password') {
@@ -35,6 +36,7 @@ class LoginView2 extends StatelessWidget {
     //print("------------->>>>>>>>>>>>>>>> HOLA!!!!! "+input2.getText());
     //print("------------->>>>>>>>>>>>>>>> HOLA!!!!! "+input3.getText());
     //myControllerInput1.clear();
+    DataHolder().pruebaFuncion();
   }
 
   @override
