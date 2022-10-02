@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/src/custom_views/RFInputText2.dart';
 import 'package:flutter_chat/src/singleton/DataHolder.dart';
 
 import '../fb_objects/Perfil.dart';
@@ -52,31 +53,29 @@ class _HomeView2State extends State<HomeView2>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    final List<String> entries = <String>['A', 'B', 'C', 'D', 'F'];
+    final List<int> colorCodes = <int>[600, 500, 100, 400, 300];
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Rooms'),
       ),
       //backgroundColor: Colors.orangeAccent,
       body: Center(
-        child: ListView(
-          padding: const EdgeInsets.all(8),
-          children: <Widget>[
-            Container(
-              height: 50,
-              color: Colors.amber[600],
-              child: const Center(child: Text('Entry A')),
-            ),
-            Container(
-              height: 50,
-              color: Colors.amber[500],
-              child: const Center(child: Text('Entry B')),
-            ),
-            Container(
-              height: 50,
-              color: Colors.amber[100],
-              child: const Center(child: Text('Entry C')),
-            ),
-          ],
+        child: ListView.separated(
+            padding: const EdgeInsets.all(8),
+            itemCount: entries.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                height: 100,
+                color: Colors.amber[colorCodes[index]],
+                child: Center(child: Text('Entry ${entries[index]}')),
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const Divider();
+              //return RFInputText2(sTitulo: "DIVISOR DEL: "+entries[index],);
+            },
         ),
       ),
     );
