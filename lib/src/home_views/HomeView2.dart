@@ -53,8 +53,8 @@ class _HomeView2State extends State<HomeView2>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    final List<String> entries = <String>['A', 'B', 'C', 'D', 'F'];
-    final List<int> colorCodes = <int>[600, 500, 100, 400, 300];
+    final List<String> entries = <String>['A', 'B', 'C', 'D', 'F', 'E','H'];
+    final List<int> colorCodes = <int>[600, 500, 100, 400, 300,700,800];
 
     return Scaffold(
       appBar: AppBar(

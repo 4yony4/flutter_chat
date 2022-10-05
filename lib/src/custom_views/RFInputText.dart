@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class RFInputText extends StatelessWidget{
 
-  final String sValorInicial;
+
   final int iLongitudPalabra;
   final String sHelperText;
   final String sTitulo;
@@ -12,13 +12,16 @@ class RFInputText extends StatelessWidget{
   final bool blIsPasswordInput;
 
   RFInputText({Key? key,
-    this.sValorInicial ="",
   this.iLongitudPalabra = 20, this.sHelperText="", this.sTitulo="",
     this.icIzquierdo=const Icon(Icons.favorite),
     this.icDerecho=const Icon(Icons.check_circle),
   this.blIsPasswordInput=false}) : super(key: key);
 
   final TextEditingController _controller=TextEditingController();
+
+  void setInitialValue(String sInitialValue){
+    _controller.text=sInitialValue;
+  }
 
   String getText(){
     return _controller.text;
