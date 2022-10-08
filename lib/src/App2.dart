@@ -29,7 +29,7 @@ class App2 extends StatelessWidget{
       routes: {
         '/Login':(context) => LoginView2(),
         '/Registro':(context) => RegisterView(),
-        '/Home':(context) => HomeView(),
+        '/Home':(context) => HomeView2(),
         '/OnBoarding':(context) => OnBoardingView2(),
         '/Splash':(context) => SplashView(),
       },

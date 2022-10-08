@@ -30,7 +30,7 @@ class _SplashViewState extends State<SplashView> {
       Navigator.of(context).popAndPushNamed("/Login");
     }
     else{
-      if(checkPerfilExistance()==true){
+      if(await checkPerfilExistance()==true){
         Navigator.of(context).popAndPushNamed("/Home");
       }
       else{
