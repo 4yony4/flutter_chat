@@ -4,9 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/src/custom_views/RFInputText2.dart';
+import 'package:flutter_chat/src/list_items/RoomItem.dart';
 import 'package:flutter_chat/src/singleton/DataHolder.dart';
 
 import '../fb_objects/Perfil.dart';
+import '../fb_objects/Room.dart';
 
 class HomeView2 extends StatefulWidget{
   @override
@@ -20,12 +22,13 @@ class _HomeView2State extends State<HomeView2>{
   FirebaseFirestore db = FirebaseFirestore.instance;
   String sNombre="---";
   bool blIsButtonVisible=true;
+  List<Room> chatRooms = [];
   
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    actualizarLista();
   }
 
   void actualizarNombre()async{
@@ -50,11 +53,28 @@ class _HomeView2State extends State<HomeView2>{
 
   }
 
+  void actualizarLista() async{
+    final docRef = db.collection("rooms")
+        .withConverter(fromFirestore: Room.fromFirestore,
+        toFirestore: (Room room, _) => room.toFirestore());
+
+    final docSnap = await docRef.get();
+
+    setState(() {
+      for(int i=0;i<docSnap.docs.length;i++){
+        chatRooms.add(docSnap.docs[i].data());
+      }
+
+    });
+
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    final List<String> entries = <String>['A', 'B', 'C', 'D', 'F'];
-    final List<int> colorCodes = <int>[600, 500, 100, 400, 300];
+
 
     return Scaffold(
       appBar: AppBar(
@@ -64,13 +84,9 @@ class _HomeView2State extends State<HomeView2>{
       body: Center(
         child: ListView.separated(
             padding: const EdgeInsets.all(8),
-            itemCount: entries.length,
+            itemCount: chatRooms.length,
             itemBuilder: (BuildContext context, int index) {
-              return Container(
-                height: 100,
-                color: Colors.amber[colorCodes[index]],
-                child: Center(child: Text('Entry ${entries[index]}')),
-              );
+              return RoomItem(sTitulo: chatRooms[index].name!,);
             },
             separatorBuilder: (BuildContext context, int index) {
               return const Divider();
