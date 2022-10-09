@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/src/singleton/DataHolder.dart';
 
 import '../fb_objects/Perfil2.dart';
 
@@ -46,6 +47,9 @@ class _SplashViewState extends State<SplashView> {
     );
 
     final docSnap = await docRef.get();
+
+    DataHolder().perfil=docSnap.data()!;
+
     return docSnap.exists;
 
     if(docSnap.exists==true){

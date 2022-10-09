@@ -12,6 +12,7 @@ import 'package:flutter_chat/src/login_views/RegisterView2.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'fb_objects/Perfil2.dart';
+import 'home_views/ChatView.dart';
 import 'home_views/HomeView2.dart';
 import 'login_views/RegisterView.dart';
 import 'login_views/SplashView.dart';
@@ -32,6 +33,8 @@ class App2 extends StatelessWidget{
         '/Home':(context) => HomeView2(),
         '/OnBoarding':(context) => OnBoardingView2(),
         '/Splash':(context) => SplashView(),
+        '/ChatView':(context) => ChatView(),
+
       },
     );
   }

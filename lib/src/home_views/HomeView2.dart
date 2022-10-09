@@ -8,6 +8,7 @@ import 'package:flutter_chat/src/list_items/RoomItem.dart';
 import 'package:flutter_chat/src/singleton/DataHolder.dart';
 
 import '../fb_objects/Perfil.dart';
+import '../fb_objects/Perfil2.dart';
 import '../fb_objects/Room.dart';
 
 class HomeView2 extends StatefulWidget{
@@ -35,8 +36,8 @@ class _HomeView2State extends State<HomeView2>{
     String? idUser=FirebaseAuth.instance.currentUser?.uid;
 
     final docRef = db.collection("perfiles").
-    doc(idUser).withConverter(fromFirestore: Perfil.fromFirestore,
-        toFirestore: (Perfil perfil, _) => perfil.toFirestore());
+    doc(idUser).withConverter(fromFirestore: Perfil2.fromFirestore,
+        toFirestore: (Perfil2 perfil, _) => perfil.toFirestore());
 
     final docSnap = await docRef.get();
     //final perfilUsuario = docSnap.data(); // Convert to Perfil object
@@ -67,6 +68,13 @@ class _HomeView2State extends State<HomeView2>{
     });
   }
 
+  void listItemShortClicked(int index){
+    print("DEBUG: "+index.toString());
+    print("DEBUG: "+chatRooms[index].name!);
+    DataHolder().selectedChatRoom=chatRooms[index];
+    Navigator.of(context).pushNamed("/ChatView");
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -82,7 +90,8 @@ class _HomeView2State extends State<HomeView2>{
             padding: const EdgeInsets.all(8),
             itemCount: chatRooms.length,
             itemBuilder: (BuildContext context, int index) {
-              return RoomItem(sTitulo: chatRooms[index].name!,);
+              return RoomItem(sTitulo: chatRooms[index].name!,
+                onShortClick: listItemShortClicked,index: index,);
             },
             separatorBuilder: (BuildContext context, int index) {
               return const Divider();

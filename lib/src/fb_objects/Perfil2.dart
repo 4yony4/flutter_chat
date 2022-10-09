@@ -5,12 +5,14 @@ class Perfil2 {
   final String? city;
   final String? country;
   final int? edad;
+  final String uid;
 
   Perfil2({
     this.name="",
     this.city="",
     this.country="",
     this.edad=0,
+    this.uid=""
   });
 
   factory Perfil2.fromFirestore(
@@ -23,6 +25,7 @@ class Perfil2 {
       city: data?['city'],
       country: data?['country'],
       edad: data?['edad'],
+      uid: snapshot.id
     );
   }
 

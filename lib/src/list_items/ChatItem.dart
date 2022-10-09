@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class RoomItem extends StatelessWidget {
+class ChatItem extends StatelessWidget {
 
-  final String sTitulo;
+  final String sTexto;
   final Function(int index) onShortClick;
   final int index;
 
-  const RoomItem({Key? key, this.sTitulo="Titulo", required this.onShortClick,
+  const ChatItem({Key? key, this.sTexto="mensaje", required this.onShortClick,
     required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return ListTile(
+    /*return ListTile(
       title: Text(sTitulo),
       subtitle: Text('Secondary text'),
       leading: Icon(Icons.label),
@@ -21,14 +21,13 @@ class RoomItem extends StatelessWidget {
         onShortClick(index);
       },
 
-    );
-    /*
-    Container(
-                height: 100,
-                color: Colors.amber[colorCodes[index]],
-                child: Center(child: Text('Entry ${entries[index]}')),
+    );*/
+
+    return Container(
+                height: 25,
+                child: Center(child: Text(sTexto)),
               );
-     */
+
 
   }
 
