@@ -43,14 +43,21 @@ class _ChatViewState extends State<ChatView>{
         toFirestore: (FBText fbtext, _) => fbtext.toFirestore());
 
 
-
-    final docSnap = await docRef.get();
+    docRef.snapshots().listen((event) {
+      chatTexts.clear();
+      setState(() {
+        for(int i=0;i<event.docs.length;i++){
+          chatTexts.add(event.docs[i].data());
+        }
+      });
+    });
+    /*final docSnap = await docRef.get();
 
     setState(() {
       for(int i=0;i<docSnap.docs.length;i++){
         chatTexts.add(docSnap.docs[i].data());
       }
-    });
+    });*/
   }
 
   void sendPressed()async {
@@ -65,7 +72,7 @@ class _ChatViewState extends State<ChatView>{
 
     await docRef.add(texto.toFirestore());
 
-    descargarTextos();
+    //descargarTextos();
 
   }
 

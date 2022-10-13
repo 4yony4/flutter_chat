@@ -32,6 +32,7 @@ class _HomeView2State extends State<HomeView2>{
     actualizarLista();
   }
 
+  /*
   void actualizarNombre()async{
     String? idUser=FirebaseAuth.instance.currentUser?.uid;
 
@@ -53,17 +54,17 @@ class _HomeView2State extends State<HomeView2>{
     }
 
   }
-
+  */
   void actualizarLista() async{
     final docRef = db.collection("rooms").
     withConverter(fromFirestore: Room.fromFirestore,
         toFirestore: (Room room, _) => room.toFirestore());
 
-    final docSnap = await docRef.get();
+    final docsSnap = await docRef.get();
 
     setState(() {
-      for(int i=0;i<docSnap.docs.length;i++){
-        chatRooms.add(docSnap.docs[i].data());
+      for(int i=0;i<docsSnap.docs.length;i++){
+        chatRooms.add(docsSnap.docs[i].data());
       }
     });
   }
@@ -82,7 +83,7 @@ class _HomeView2State extends State<HomeView2>{
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Rooms'),
+        title: Text('Bienvenido: '+DataHolder().perfil.name!),
       ),
       //backgroundColor: Colors.orangeAccent,
       body: Center(

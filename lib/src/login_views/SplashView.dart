@@ -25,13 +25,14 @@ class _SplashViewState extends State<SplashView> {
   }
 
   void isUserLogged() async{
-    await Future.delayed(Duration(seconds: 5));
+    await Future.delayed(Duration(seconds: 2));
 
     if(FirebaseAuth.instance.currentUser==null){
       Navigator.of(context).popAndPushNamed("/Login");
     }
     else{
-      if(await checkPerfilExistance()==true){
+      await DataHolder().descargarMIPerfil();
+      if(DataHolder().isMIPerfilDownloaded()==true){
         Navigator.of(context).popAndPushNamed("/Home");
       }
       else{
@@ -40,26 +41,7 @@ class _SplashViewState extends State<SplashView> {
     }
   }
 
-  Future<bool> checkPerfilExistance() async {
-    final docRef = db.collection("perfiles").doc(FirebaseAuth.instance.currentUser?.uid)
-        .withConverter(fromFirestore: Perfil2.fromFirestore,
-      toFirestore: (Perfil2 perfil, _) => perfil.toFirestore(),
-    );
 
-    final docSnap = await docRef.get();
-
-    DataHolder().perfil=docSnap.data()!;
-
-    return docSnap.exists;
-
-    if(docSnap.exists==true){
-      return true;
-    }
-    else{
-      return false;
-    }
-
-  }
 
   @override
   Widget build(BuildContext context) {

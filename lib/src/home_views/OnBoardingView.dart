@@ -42,7 +42,7 @@ class _OnBoardingViewState extends State<OnBoardingView>{
     if(docsnap.exists){
       Navigator.of(context).popAndPushNamed("/Home");
     }
-    DataHolder().pruebaFuncion();
+    //DataHolder().pruebaFuncion();
   }
 
   void acceptPressed(String nombre, String Pais, String Ciudad, int edad, BuildContext context) async{

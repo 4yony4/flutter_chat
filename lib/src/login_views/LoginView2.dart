@@ -36,7 +36,7 @@ class LoginView2 extends StatelessWidget {
     //print("------------->>>>>>>>>>>>>>>> HOLA!!!!! "+input2.getText());
     //print("------------->>>>>>>>>>>>>>>> HOLA!!!!! "+input3.getText());
     //myControllerInput1.clear();
-    DataHolder().pruebaFuncion();
+    //DataHolder().pruebaFuncion();
   }
 
   @override
