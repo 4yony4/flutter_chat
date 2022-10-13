@@ -32,7 +32,7 @@ class _ChatViewState extends State<ChatView>{
   }
 
   void descargarTextos() async{
-    chatTexts.clear();
+
 
     String path=DataHolder().sCOLLECTION_ROOMS_NAME+"/"+
         DataHolder().selectedChatRoom.uid+
@@ -43,21 +43,28 @@ class _ChatViewState extends State<ChatView>{
         toFirestore: (FBText fbtext, _) => fbtext.toFirestore());
 
 
-    docRef.snapshots().listen((event) {
-      chatTexts.clear();
-      setState(() {
-        for(int i=0;i<event.docs.length;i++){
-          chatTexts.add(event.docs[i].data());
-        }
-      });
-    });
-    /*final docSnap = await docRef.get();
+    docRef.snapshots().listen(
+          (event) => {
+          setState(() {
+            chatTexts.clear();
+              for(int i=0;i<event.docs.length;i++){
+                chatTexts.add(event.docs[i].data());
+              }
+            })
+          },
+          onError: (error) => print("Listen failed: $error"),
+    );
+
+    /*
+    final docSnap = await docRef.get();
 
     setState(() {
       for(int i=0;i<docSnap.docs.length;i++){
         chatTexts.add(docSnap.docs[i].data());
       }
-    });*/
+    });
+    */
+
   }
 
   void sendPressed()async {
