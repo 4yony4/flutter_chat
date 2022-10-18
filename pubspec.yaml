@@ -38,6 +38,8 @@ dependencies:
   firebase_auth: ^3.11.0
   cloud_firestore: ^3.5.0
   fluttertoast: ^8.0.9
+  eurekalib:
+    path: ../eurekalib
   #vrzlib:
   #  path: ../vrzlib
 

@@ -21,6 +21,9 @@ class DataHolder{
   Room selectedChatRoom = Room();
   FBAdmin fbAdmin = FBAdmin();
 
+  double dSCREEN_WIDTH=0;
+  double dSCREEN_HEIGHT=0;
+
   DataHolder._internal() {
     //text.value = "Lorem ipsum";
     sMensaje = "Lorem ipsum";
