@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../fb_objects/Perfil2.dart';
+import '../fb_objects/Room2.dart';
 
 class HomeView extends StatefulWidget{
   @override
@@ -19,48 +20,26 @@ class _HomeViewState extends State<HomeView>{
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   String sNombre="AQUI IRA EL NOMBRE";
-
+  List<Room2> chatRooms= [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getProfile();
+    getRoomsList();
   }
 
-  void getProfile() async{
-    //final docRef = db.collection("perfiles").doc(FirebaseAuth.instance.currentUser?.uid);
+  void getRoomsList() async{
+    final docRef = db.collection("rooms").
+    withConverter(fromFirestore: Room2.fromFirestore,
+        toFirestore: (Room2 room, _) => room.toFirestore());
 
-    final docRef = db.collection("perfiles").doc(FirebaseAuth.instance.currentUser?.uid)
-        .withConverter(fromFirestore: Perfil2.fromFirestore,
-      toFirestore: (Perfil2 perfil, _) => perfil.toFirestore(),
-    );
+    final docsSnap = await docRef.get();
 
-    final docSnap = await docRef.get();
-    final perfil = docSnap.data(); // Convert to City object
-    if (perfil != null) {
-      //print("!!!!!!!!!!!!!!!!!!!! "+perfil.name!+"     "+perfil.city!);
-      setState(() {
-        sNombre=perfil.city!;
-      });
-    } else {
-      print("No such document.");
-    }
-
-    /*
-    await docRef.get().then(
-          (DocumentSnapshot doc) {
-        final data = doc.data() as Map<String, dynamic>;
-        print("--------->>>>>>>>>>>>>>>>  "+data?['name']);
-
-        setState(() {
-          sNombre=data?['name'];
-        });
-        // ...
-      },
-      onError: (e) => print("Error getting document: $e"),
-    );
-    */
-
+    setState(() {
+      for(int i=0;i<docsSnap.docs.length;i++){
+        chatRooms.add(docsSnap.docs[i].data());
+      }
+    });
 
   }
 
@@ -68,14 +47,29 @@ class _HomeViewState extends State<HomeView>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    List<String> listaNombres= ["Gonzalo","Sonia","Karen"];
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Chatdar'),
       ),
       //backgroundColor: Colors.orangeAccent,
       body: Center(
-        child:GridView.count(
+        child:
+        GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+            ),
+            itemCount: chatRooms.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Card(
+                color: Colors.amber,
+                child: Center(child: Image.network(chatRooms[index].image!)),
+              );
+            }
+        )
+
+
+        /*GridView.count(
           primary: false,
           padding: const EdgeInsets.all(20),
           crossAxisSpacing: 30,
@@ -113,7 +107,7 @@ class _HomeViewState extends State<HomeView>{
               child: const Text('Revolution, they...'),
             ),
           ],
-        )
+        )*/
       ),
     );
   }

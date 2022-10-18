@@ -30,13 +30,13 @@ class App2 extends StatelessWidget{
     //DataHolder().dSCREEN_WIDTH= MediaQuery.of(context).size.width;
 
     return MaterialApp(
-      initialRoute: '/Splash',
+      initialRoute: '/Home',
       routes: {
         '/Login':(context) => LoginView2(),
         '/Registro':(context) => RegisterView(),
         '/Home':(context) => HomeView(),
         '/OnBoarding':(context) => OnBoardingView2(),
-        '/Splash':(context) => YonyView(),
+        '/Splash':(context) => SplashView(),
         '/ChatView':(context) => ChatView(),
 
       },
