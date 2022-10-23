@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import '../fb_objects/Perfil2.dart';
 import '../fb_objects/Room2.dart';
+import '../singleton/DataHolder.dart';
 
 class HomeView extends StatefulWidget{
   @override
@@ -30,8 +31,10 @@ class _HomeViewState extends State<HomeView>{
   }
 
   void getRoomsList() async{
-    //String Query=SELECT * FROM ROOMS WHERE members>50;
-    final docsRef = db.collection("rooms").where("members",isGreaterThan: 50).
+    //String Query=SELECT * FROM ROOMS WHERE MEMBERS >25 && MEMBERS <100
+    //final docsRef = db.collection("rooms").where("members",isGreaterThan: 25,isLessThan: 100).
+    final docsRef = db.collection("rooms").where("members",isGreaterThan: 25,isLessThan: 170).
+    orderBy("members",descending: false).
     withConverter(fromFirestore: Room2.fromFirestore,
         toFirestore: (Room2 room, _) => room.toFirestore());
 
@@ -44,6 +47,13 @@ class _HomeViewState extends State<HomeView>{
       }
     });
 
+  }
+
+  void listItemShortClicked(int index){
+    print("DEBUG: "+index.toString());
+    print("DEBUG: "+chatRooms[index].name!);
+    //DataHolder().selectedChatRoom=chatRooms[index];
+    Navigator.of(context).pushNamed("/ChatView");
   }
 
 
@@ -65,7 +75,8 @@ class _HomeViewState extends State<HomeView>{
             itemCount: chatRooms.length,
             itemBuilder: (BuildContext context, int index) {
               return RoomCard(sImgURL: chatRooms[index].image!,
-              sName: chatRooms[index].name!,);
+              sName: chatRooms[index].name!,onShortClick: listItemShortClicked,
+              index: index,);
             }
         )
 

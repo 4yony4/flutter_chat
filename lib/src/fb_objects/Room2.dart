@@ -30,7 +30,7 @@ class Room2 {
     return {
       if (name != null) "name": name,
       if (image != null) "image": image,
-      if (members != null) "members": members,
+      if (members != 0) "members": members,
     };
   }
 }
