@@ -2,6 +2,7 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eurekalib/grid_views/RoomCard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -29,11 +30,13 @@ class _HomeViewState extends State<HomeView>{
   }
 
   void getRoomsList() async{
-    final docRef = db.collection("rooms").
+    //String Query=SELECT * FROM ROOMS WHERE members>50;
+    final docsRef = db.collection("rooms").where("members",isGreaterThan: 50).
     withConverter(fromFirestore: Room2.fromFirestore,
         toFirestore: (Room2 room, _) => room.toFirestore());
 
-    final docsSnap = await docRef.get();
+    //stmt.executeQuery(Query);
+    final docsSnap = await docsRef.get();
 
     setState(() {
       for(int i=0;i<docsSnap.docs.length;i++){
@@ -61,10 +64,8 @@ class _HomeViewState extends State<HomeView>{
             ),
             itemCount: chatRooms.length,
             itemBuilder: (BuildContext context, int index) {
-              return Card(
-                color: Colors.amber,
-                child: Center(child: Image.network(chatRooms[index].image!)),
-              );
+              return RoomCard(sImgURL: chatRooms[index].image!,
+              sName: chatRooms[index].name!,);
             }
         )
 
