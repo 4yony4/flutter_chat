@@ -17,6 +17,7 @@ import 'fb_objects/Perfil2.dart';
 import 'home_views/ChatView.dart';
 import 'home_views/HomeView2.dart';
 import 'login_views/RegisterView.dart';
+import 'login_views/SVLogoWait.dart';
 import 'login_views/SplashView.dart';
 
 class App2 extends StatelessWidget{
@@ -30,13 +31,13 @@ class App2 extends StatelessWidget{
     //DataHolder().dSCREEN_WIDTH= MediaQuery.of(context).size.width;
 
     return MaterialApp(
-      initialRoute: '/Home',
+      initialRoute: '/Splash',
       routes: {
         '/Login':(context) => LoginView2(),
         '/Registro':(context) => RegisterView(),
         '/Home':(context) => HomeView(),
         '/OnBoarding':(context) => OnBoardingView2(),
-        '/Splash':(context) => SplashView(),
+        '/Splash':(context) => const SVLogoWait("assets/images/logo2.png"),
         '/ChatView':(context) => ChatView(),
 
       },
