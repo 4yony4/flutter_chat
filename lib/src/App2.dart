@@ -29,19 +29,42 @@ class App2 extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     //DataHolder().dSCREEN_WIDTH= MediaQuery.of(context).size.width;
+    MaterialApp materialAppMobile=const MaterialApp();
 
-    return MaterialApp(
-      initialRoute: '/Splash',
-      routes: {
-        '/Login':(context) => LoginView2(),
-        '/Registro':(context) => RegisterView(),
-        '/Home':(context) => HomeView(),
-        '/OnBoarding':(context) => OnBoardingView2(),
-        '/Splash':(context) => const SVLogoWait("assets/images/logo2.png"),
-        '/ChatView':(context) => ChatView(),
+    if(DataHolder().platformAdmin.isAndroidPlatform() ||
+        DataHolder().platformAdmin.isIOSPlatform()){
 
-      },
-    );
+      materialAppMobile=MaterialApp(
+        initialRoute: '/Splash',
+        routes: {
+          '/Login':(context) => LoginView2(),
+          '/Registro':(context) => RegisterView(),
+          '/Home':(context) => HomeView(),
+          '/OnBoarding':(context) => OnBoardingView2(),
+          '/Splash':(context) => const SVLogoWait("assets/images/logo2.png"),
+          '/ChatView':(context) => ChatView(),
+
+        },
+      );
+    }
+    else if(DataHolder().platformAdmin.isWebPlatform()){
+      materialAppMobile=MaterialApp(
+        initialRoute: '/Splash',
+        routes: {
+          '/Login':(context) => LoginView2(),
+          '/Registro':(context) => RegisterView(),
+          '/Home':(context) => HomeView(),
+          '/OnBoarding':(context) => OnBoardingView2(),
+          '/Splash':(context) => const SVLogoWait("assets/images/logo.jpg"),
+          '/ChatView':(context) => ChatView(),
+
+        },
+      );
+    }
+
+
+
+    return materialAppMobile;
   }
 
 }

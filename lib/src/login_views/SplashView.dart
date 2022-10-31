@@ -22,6 +22,8 @@ class _SplashViewState extends State<SplashView> {
     // TODO: implement initState
     super.initState();
     isUserLogged();
+
+
   }
 
   void isUserLogged() async{

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/src/singleton/DataHolder.dart';
 
 class SVLogoWait extends StatefulWidget{
   final String sLogoPath;
@@ -22,6 +23,7 @@ class _SVLogoWaitState extends State<SVLogoWait> {
     super.initState();
     //FirebaseAuth.instance.signOut();
     loadAllData();
+
   }
 
   void loadAllData() async{
@@ -64,15 +66,18 @@ class _SVLogoWaitState extends State<SVLogoWait> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    DataHolder().platformAdmin.initDisplayData(context);
+    print("DEBUG: LA PLATAFORMA TIENE UNA ALTURA: "+DataHolder().platformAdmin.dSCREEN_HEIGHT.toString());
+
     return Scaffold(
         body: Center(
           child:Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image(image: AssetImage(widget.sLogoPath)),
-              const SizedBox(height: 30),
-              const Text("CARGANDO...",style: TextStyle(fontSize: 20)),
-              const SizedBox(height: 30),
+              Image(image: AssetImage(widget.sLogoPath),width: DataHolder().platformAdmin.dSCREEN_WIDTH,),
+              SizedBox(height: DataHolder().platformAdmin.dSCREEN_HEIGHT/20),
+              Text("CARGANDO...",style: TextStyle(fontSize: DataHolder().platformAdmin.dSCREEN_HEIGHT/20)),
+              SizedBox(height: DataHolder().platformAdmin.dSCREEN_HEIGHT/20),
               const CircularProgressIndicator(
                 semanticsLabel: 'Circular progress indicator',
               )

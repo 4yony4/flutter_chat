@@ -1,10 +1,12 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_chat/src/fb_objects/Perfil2.dart';
 
 import '../fb_objects/Perfil.dart';
 import '../fb_objects/Room.dart';
 import '../firebase/FbAdmin.dart';
+import '../platform/PlatformAdmin.dart';
 
 /**
  *
@@ -24,10 +26,17 @@ class DataHolder{
   double dSCREEN_WIDTH=0;
   double dSCREEN_HEIGHT=0;
 
+  late PlatformAdmin platformAdmin;
+
   DataHolder._internal() {
     //text.value = "Lorem ipsum";
     sMensaje = "Lorem ipsum";
+    platformAdmin=PlatformAdmin();
   }
+
+  //void initPlatformAdminDisplaySetting(BuildContext context){
+    //platformAdmin.initDisplayData(context);
+  //}
 
   factory DataHolder(){
     return _dataHolder;
