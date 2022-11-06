@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/src/custom_views/RFInputText.dart';
@@ -47,9 +48,10 @@ class _ChatViewState extends State<ChatView>{
           (event) => {
           setState(() {
             chatTexts.clear();
-              for(int i=0;i<event.docs.length;i++){
-                chatTexts.add(event.docs[i].data());
-              }
+            for(int i=0;i<event.docs.length;i++){
+              chatTexts.add(event.docs[i].data());
+            }
+            chatTexts.sort(compareChatText);
             })
           },
           onError: (error) => print("Listen failed: $error"),
@@ -67,6 +69,15 @@ class _ChatViewState extends State<ChatView>{
 
   }
 
+  int compareChatText(FBText a,FBText b){
+    int? res=a.time?.compareTo(b.time!);
+    //print("COMPARATOR A: "+a.time.toString()+"  B: "+b.time.toString()+" = "+res.toString());
+    return res!;
+    //return a.time?.compareTo(b.time!);
+
+    //return 0;
+  }
+
   void sendPressed()async {
     String path=DataHolder().sCOLLECTION_ROOMS_NAME+"/"+
         DataHolder().selectedChatRoom.uid+
@@ -75,7 +86,7 @@ class _ChatViewState extends State<ChatView>{
     final docRef = db.collection(path);
 
     FBText texto=FBText(text:inputMsg.getText(),
-    author: DataHolder().perfil.uid,time: Timestamp.now());
+    author: FirebaseAuth.instance.currentUser?.uid,time: Timestamp.now());
 
     await docRef.add(texto.toFirestore());
 
@@ -103,17 +114,18 @@ class _ChatViewState extends State<ChatView>{
             Container(
               color: Colors.amberAccent,
               height: 400,
-              child: ListView.separated(
-                padding: const EdgeInsets.all(8),
+              child: ListView.builder(
+                //padding: const EdgeInsets.all(8),
                 itemCount: chatTexts.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ChatItem(sTexto: chatTexts[index].text!,
-                    onShortClick: listItemShortClicked,index: index,);
+                    onShortClick: listItemShortClicked,index: index,
+                    sAuthor: chatTexts[index].author!,);
                 },
-                separatorBuilder: (BuildContext context, int index) {
+                /*separatorBuilder: (BuildContext context, int index) {
                   return const Divider();
                   //return RFInputText2(sTitulo: "DIVISOR DEL: "+entries[index],);
-                },
+                },*/
               ),
             ),
               inputMsg,

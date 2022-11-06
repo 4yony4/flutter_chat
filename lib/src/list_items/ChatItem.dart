@@ -1,14 +1,20 @@
+import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../custom_views/chat_bubbles/received_message_bubble.dart';
+import '../custom_views/chat_bubbles/send_message_bubble.dart';
 
 class ChatItem extends StatelessWidget {
 
   final String sTexto;
   final Function(int index) onShortClick;
   final int index;
+  final String sAuthor;
 
   const ChatItem({Key? key, this.sTexto="mensaje", required this.onShortClick,
-    required this.index}) : super(key: key);
+    required this.index, required this.sAuthor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +29,34 @@ class ChatItem extends StatelessWidget {
 
     );*/
 
-    return Container(
+    /*return Container(
                 height: 25,
                 child: Center(child: Text(sTexto)),
               );
+
+     */
+    if(sAuthor==FirebaseAuth.instance.currentUser?.uid){
+      return BubbleSpecialThree(
+        text: sTexto,
+        color: Color(0xFF43F31B),
+        tail: true,
+        textStyle: TextStyle(
+            color: Color(0xFF1B4AF3),
+            fontSize: 16
+        ),
+      );
+      //return SendMessageBubble(sMessage: sTexto);
+    }
+    else{
+      //return ReceivedMessageBubble(sMessage: sTexto);
+      return BubbleSpecialThree(
+        text: sTexto,
+        color: Color(0xFFE8E8EE),
+        tail: true,
+        isSender: false,
+      );
+    }
+
 
 
   }
