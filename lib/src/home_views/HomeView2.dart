@@ -24,6 +24,7 @@ class _HomeView2State extends State<HomeView2>{
   String sNombre="---";
   bool blIsButtonVisible=true;
   List<Room> chatRooms = [];
+  bool blIsListVisible=true;
 
   @override
   void initState() {
@@ -79,7 +80,7 @@ class _HomeView2State extends State<HomeView2>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-
+    //DataHolder().platformAdmin.initDisplayData(context);
 
     return Scaffold(
       appBar: AppBar(

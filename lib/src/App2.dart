@@ -30,7 +30,7 @@ class App2 extends StatelessWidget{
   Widget build(BuildContext context) {
     //DataHolder().dSCREEN_WIDTH= MediaQuery.of(context).size.width;
     MaterialApp materialAppMobile=const MaterialApp();
-
+    //DataHolder().platformAdmin.initDisplayData(context);
     if(DataHolder().platformAdmin.isAndroidPlatform() ||
         DataHolder().platformAdmin.isIOSPlatform()){
 
@@ -49,11 +49,11 @@ class App2 extends StatelessWidget{
     }
     else if(DataHolder().platformAdmin.isWebPlatform()){
       materialAppMobile=MaterialApp(
-        initialRoute: '/Splash',
+        initialRoute: '/Home',
         routes: {
           '/Login':(context) => LoginView2(),
           '/Registro':(context) => RegisterView(),
-          '/Home':(context) => HomeView(),
+          '/Home':(context) => HomeView2(),
           '/OnBoarding':(context) => OnBoardingView2(),
           '/Splash':(context) => const SVLogoWait("assets/images/logo.jpg"),
           '/ChatView':(context) => ChatView(),

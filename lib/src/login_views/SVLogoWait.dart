@@ -66,7 +66,7 @@ class _SVLogoWaitState extends State<SVLogoWait> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    DataHolder().platformAdmin.initDisplayData(context);
+    //DataHolder().platformAdmin.initDisplayData(context);
     print("DEBUG: LA PLATAFORMA TIENE UNA ALTURA: "+DataHolder().platformAdmin.dSCREEN_HEIGHT.toString());
 
     return Scaffold(
