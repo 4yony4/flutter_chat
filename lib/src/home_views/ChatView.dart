@@ -10,6 +10,7 @@ import 'package:flutter_chat/src/custom_views/RFInputText.dart';
 import 'package:flutter_chat/src/custom_views/RFInputText2.dart';
 import 'package:flutter_chat/src/list_items/ChatItem.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../fb_objects/FBText.dart';
 import '../singleton/DataHolder.dart';
@@ -31,6 +32,8 @@ class _ChatViewState extends State<ChatView>{
   late File imageFile;
   bool blImageLoaded=false;
   double dListHeightPorcentage=0.8;
+
+  final storage = FirebaseStorage.instance;
 
   @override
   void initState() {
@@ -99,10 +102,26 @@ class _ChatViewState extends State<ChatView>{
 
     await docRef.add(texto.toFirestore());
 
-    setState(() {
-      blImageLoaded=false;
-      dListHeightPorcentage=0.8;
-    });
+    if(blImageLoaded){
+      final storageRef = FirebaseStorage.instance.ref();//Apunta a la / del storage
+      final imagen1ImagesRef = storageRef.child("imagenes/avatar.jpg");
+
+      try {
+        await imagen1ImagesRef.putFile(imageFile);
+        setState(() {
+          blImageLoaded=false;
+          dListHeightPorcentage=0.8;
+        });
+
+      } on FirebaseException catch (e) {
+        print("HUBO UN ERROR EN EL ENVIO DE LA IMAGEN: $e");
+        // ...
+      }
+
+
+    }
+
+
     //descargarTextos();
 
   }
