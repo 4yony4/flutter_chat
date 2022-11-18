@@ -6,11 +6,13 @@ class FBText {
   final String? text;
   final String? author;
   final Timestamp? time;
+  final String? imgUrl;
 
   FBText({
     this.text="",
     this.author="",
     this.time,
+    this.imgUrl="",
   });
 
   factory FBText.fromFirestore(
@@ -22,6 +24,7 @@ class FBText {
       text: data?['text'],
       author: data?['author'],
       time: data?['time'],
+      imgUrl: data?['imgUrl'],
     );
   }
 
@@ -30,6 +33,7 @@ class FBText {
       if (text != null) "text": text,
       if (author != null) "author": author,
       if (time != null) "time": time,
+      if (imgUrl != null) "imgUrl": imgUrl,
     };
   }
 }

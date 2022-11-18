@@ -91,23 +91,17 @@ class _ChatViewState extends State<ChatView>{
   }
 
   void sendPressed(String sNuevoTexto)async {
-    String path=DataHolder().sCOLLECTION_ROOMS_NAME+"/"+
-        DataHolder().selectedChatRoom.uid+
-        "/"+DataHolder().sCOLLECTION_TEXTS_NAME;
 
-    final docRef = db.collection(path);
-
-    FBText texto=FBText(text:sNuevoTexto,
-    author: FirebaseAuth.instance.currentUser?.uid,time: Timestamp.now());
-
-    await docRef.add(texto.toFirestore());
-
+    //INICIO DE SUBIDO DE LA IMAGEN
+    String sUrl="";
     if(blImageLoaded){
       final storageRef = FirebaseStorage.instance.ref();//Apunta a la / del storage
       final imagen1ImagesRef = storageRef.child("imagenes/avatar.jpg");
 
       try {
         await imagen1ImagesRef.putFile(imageFile);
+        sUrl=await imagen1ImagesRef.getDownloadURL();
+
         setState(() {
           blImageLoaded=false;
           dListHeightPorcentage=0.8;
@@ -117,11 +111,21 @@ class _ChatViewState extends State<ChatView>{
         print("HUBO UN ERROR EN EL ENVIO DE LA IMAGEN: $e");
         // ...
       }
-
-
     }
+    //FIN DE SUBIDO DE LA IMAGEN
 
+    //INICIO DE INSERCION DEL NUEVO MENSAJE EN LA BASE DE DATOS
+    String path=DataHolder().sCOLLECTION_ROOMS_NAME+"/"+
+        DataHolder().selectedChatRoom.uid+
+        "/"+DataHolder().sCOLLECTION_TEXTS_NAME;
 
+    final docRef = db.collection(path);
+
+    FBText nuevoMensaje=FBText(text:sNuevoTexto,
+        author: FirebaseAuth.instance.currentUser?.uid,time: Timestamp.now(),imgUrl: sUrl);
+
+    await docRef.add(nuevoMensaje.toFirestore());
+    //FIN DE INSERCION DEL NUEVO MENSAJE EN LA BASE DE DATOS
     //descargarTextos();
 
   }
@@ -165,7 +169,7 @@ class _ChatViewState extends State<ChatView>{
                 itemBuilder: (BuildContext context, int index) {
                   return ChatItem(sTexto: chatTexts[index].text!,
                     onShortClick: listItemShortClicked,index: index,
-                    sAuthor: chatTexts[index].author!,);
+                    sAuthor: chatTexts[index].author!,imgUrl: chatTexts[index].imgUrl);
                 },
                 /*separatorBuilder: (BuildContext context, int index) {
                   return const Divider();
