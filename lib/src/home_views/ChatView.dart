@@ -96,7 +96,8 @@ class _ChatViewState extends State<ChatView>{
     String sUrl="";
     if(blImageLoaded){
       final storageRef = FirebaseStorage.instance.ref();//Apunta a la / del storage
-      final imagen1ImagesRef = storageRef.child("imagenes/avatar.jpg");
+      //final imagen1ImagesRef = storageRef.child("imagenes/avatar2.jpg");
+      final imagen1ImagesRef = storageRef.child("imagenes/rooms/${DataHolder().selectedChatRoom.uid}/img_${Timestamp.now().seconds}.jpg");
 
       try {
         await imagen1ImagesRef.putFile(imageFile);
@@ -135,7 +136,7 @@ class _ChatViewState extends State<ChatView>{
   }
 
   void selectImage() async{
-    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.camera);
     //final XFile? pickedFile = await _picker.pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
       setState(() {

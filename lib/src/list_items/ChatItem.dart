@@ -1,7 +1,11 @@
+import 'package:chat_bubbles/bubbles/bubble_normal.dart';
+import 'package:chat_bubbles/bubbles/bubble_special_one.dart';
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
+import 'package:chat_bubbles/bubbles/bubble_special_two.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/src/singleton/DataHolder.dart';
 
 import '../custom_views/chat_bubbles/received_message_bubble.dart';
 import '../custom_views/chat_bubbles/send_message_bubble.dart';
@@ -37,8 +41,16 @@ class ChatItem extends StatelessWidget {
 
      */
 
-    if(imgUrl!=null){
-      return Image.network(imgUrl!);
+    if(imgUrl!=null && imgUrl!.isNotEmpty){
+
+      //return Image.network(imgUrl!,width: DataHolder().platformAdmin.getScreenWidth(context)*0.5,
+      //  height: DataHolder().platformAdmin.getScreenWidth(context)*0.5,);
+      if(sAuthor==FirebaseAuth.instance.currentUser?.uid){
+        return SendMessageBubble(sMessage: sTexto, imgUrl: imgUrl!);
+      }
+      else{
+        return ReceivedMessageBubble(sMessage: sTexto, imgUrl: imgUrl!);
+      }
     }else{
       if(sAuthor==FirebaseAuth.instance.currentUser?.uid){
         return BubbleSpecialThree(

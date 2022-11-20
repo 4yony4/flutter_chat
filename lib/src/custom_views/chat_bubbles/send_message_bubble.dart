@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/src/custom_views/chat_bubbles/chat_trail.dart';
+import 'package:flutter_chat/src/singleton/DataHolder.dart';
 
 class SendMessageBubble extends StatelessWidget{
 
   final String sMessage;
+  final String imgUrl;
 
-  const SendMessageBubble({Key? key, required this.sMessage}): super(key: key);
+  const SendMessageBubble({Key? key, required this.sMessage, required this.imgUrl}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +28,15 @@ class SendMessageBubble extends StatelessWidget{
                     bottomRight: Radius.circular(18),
                   ),
                 ),
-                child: Text(
-                  sMessage,
-                  style: const TextStyle(color: Colors.white, fontSize: 14),
-                ),
+                child:Column(
+                  children: [
+                    Image.network(imgUrl,height: DataHolder().platformAdmin.getScreenHeight(context)*0.4,),
+                    Text(
+                      sMessage,
+                      style: const TextStyle(color: Colors.white, fontSize: 14),
+                    ),
+                  ],
+                )
               ),
             ),
             CustomPaint(painter: ChatTrail(Colors.cyan[900]!)),

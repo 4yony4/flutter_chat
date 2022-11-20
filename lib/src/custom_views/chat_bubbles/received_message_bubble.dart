@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat/src/custom_views/chat_bubbles/chat_trail.dart';
 import 'dart:math';
 
+import '../../singleton/DataHolder.dart';
+
 class ReceivedMessageBubble extends StatelessWidget{
 
   final String sMessage;
+  final String imgUrl;
 
-  const ReceivedMessageBubble({Key? key, required this.sMessage}): super(key: key);
+  const ReceivedMessageBubble({Key? key, required this.sMessage, required this.imgUrl}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +37,15 @@ class ReceivedMessageBubble extends StatelessWidget{
                     bottomRight: Radius.circular(18),
                   ),
                 ),
-                child: Text(
-                  sMessage,
-                  style: const TextStyle(color: Colors.black, fontSize: 14),
-                ),
+                child: Column(
+                  children: [
+                    Image.network(imgUrl,height: DataHolder().platformAdmin.getScreenHeight(context)*0.4,),
+                    Text(
+                      sMessage,
+                      style: const TextStyle(color: Colors.white, fontSize: 14),
+                    ),
+                  ],
+                )
               ),
             ),
           ],

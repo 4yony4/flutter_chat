@@ -23,9 +23,6 @@ class DataHolder{
   Room selectedChatRoom = Room();
   FBAdmin fbAdmin = FBAdmin();
 
-  double dSCREEN_WIDTH=0;
-  double dSCREEN_HEIGHT=0;
-
   late PlatformAdmin platformAdmin;
 
   DataHolder._internal() {
