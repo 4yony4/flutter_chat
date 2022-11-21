@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../fb_objects/Perfil2.dart';
 import '../fb_objects/Room2.dart';
 import '../singleton/DataHolder.dart';
+import 'package:http/http.dart' as http;
 
 class HomeView extends StatefulWidget{
   @override
@@ -28,6 +29,26 @@ class _HomeViewState extends State<HomeView>{
     // TODO: implement initState
     super.initState();
     getRoomsList();
+    getPilotosF1();
+  }
+
+  void getPilotosF1() async{
+
+
+
+    final response = await http
+        .get(Uri.parse('http://ergast.com/api/f1/2022/drivers.json?callback=myParser'));
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      print("DEBUG: --->>>>>>>>>   "+response.body);
+      //return Album.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
   }
 
   void getRoomsList() async{

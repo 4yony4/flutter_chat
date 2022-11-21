@@ -43,6 +43,7 @@ dependencies:
   eurekalib:
     path: ../eurekalib
   firebase_storage: ^11.0.4
+  http: ^0.13.5
   #vrzlib:
   #  path: ../vrzlib
 
