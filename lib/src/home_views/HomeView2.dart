@@ -35,7 +35,7 @@ class _HomeView2State extends State<HomeView2>{
     // TODO: implement initState
     super.initState();
     actualizarLista();
-    getPilotosF1();
+    //getPilotosF1();
   }
 
   void getPilotosF1() async{

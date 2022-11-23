@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eurekalib/custom_views/YonyView.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/src/GeoLocMaps/MapSample.dart';
 import 'package:flutter_chat/src/custom_views/RFInputText2.dart';
 import 'package:flutter_chat/src/home_views/HomeView.dart';
 import 'package:flutter_chat/src/home_views/OnBoardingView.dart';
@@ -35,7 +36,7 @@ class App2 extends StatelessWidget{
         DataHolder().platformAdmin.isIOSPlatform()){
 
       materialAppMobile=MaterialApp(
-        initialRoute: '/Splash',
+        initialRoute: '/Mapa1',
         routes: {
           '/Login':(context) => LoginView2(),
           '/Registro':(context) => RegisterView(),
@@ -43,6 +44,7 @@ class App2 extends StatelessWidget{
           '/OnBoarding':(context) => OnBoardingView2(),
           '/Splash':(context) => const SVLogoWait("assets/images/logo2.png"),
           '/ChatView':(context) => ChatView(),
+          '/Mapa1':(context) => MapSample(),
 
         },
       );
