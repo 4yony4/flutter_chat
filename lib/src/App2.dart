@@ -51,7 +51,7 @@ class App2 extends StatelessWidget{
     }
     else if(DataHolder().platformAdmin.isWebPlatform()){
       materialAppMobile=MaterialApp(
-        initialRoute: '/Home',
+        initialRoute: '/Splash',
         routes: {
           '/Login':(context) => LoginView2(),
           '/Registro':(context) => RegisterView(),
