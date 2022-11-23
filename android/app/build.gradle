@@ -27,6 +27,13 @@ apply plugin: 'com.google.gms.google-services'
 // END: FlutterFire Configuration
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+//apply plugin: 'com.google.secrets_gradle_plugin'// version '0.4'
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def googlemapApi = properties.getProperty('googlemap.api')
+//def applicationName = properties.getProperty('application.Name')
+
 
 android {
     compileSdkVersion 33
@@ -54,6 +61,10 @@ android {
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        manifestPlaceholders = [googlemapApi: googlemapApi,applicationName:manifestPlaceholders['applicationName']]
+        //manifestPlaceholders[applicationName]
+        //manifestPlaceholders = [googlemapApi: googlemapApi,applicationName:anifestPlaceholders[applicationName]]
+        //manifestPlaceholders = [googlemapApi: googlemapApi,applicationName:applicationName]
     }
 
     buildTypes {
