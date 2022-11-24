@@ -51,6 +51,10 @@ class App2 extends StatelessWidget{
     }
     else if(DataHolder().platformAdmin.isWebPlatform()){
       materialAppMobile=MaterialApp(
+        theme: ThemeData(
+          brightness: Brightness.dark,
+          fontFamily: 'Georgia',
+        ),
         initialRoute: '/Splash',
         routes: {
           '/Login':(context) => LoginView2(),

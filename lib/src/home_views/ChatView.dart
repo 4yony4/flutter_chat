@@ -109,7 +109,7 @@ class _ChatViewState extends State<ChatView>{
         });
 
       } on FirebaseException catch (e) {
-        print("HUBO UN ERROR EN EL ENVIO DE LA IMAGEN: $e");
+        print("DEBUG: HUBO UN ERROR EN EL ENVIO DE LA IMAGEN: $e");
         // ...
       }
     }
