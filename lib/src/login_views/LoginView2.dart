@@ -43,7 +43,7 @@ class LoginView2 extends StatelessWidget {
   Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('AppBar Demo'),
+          title: const Text('ChatFlutter Login'),
           backgroundColor: Colors.deepPurpleAccent,
         ),
         body: Center(
