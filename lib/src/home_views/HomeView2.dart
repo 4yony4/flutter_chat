@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/src/custom_views/RFInputText2.dart';
@@ -35,6 +36,7 @@ class _HomeView2State extends State<HomeView2>{
     // TODO: implement initState
     super.initState();
     actualizarLista();
+    setupInteractedMessage();
     //getPilotosF1();
   }
 
@@ -122,6 +124,37 @@ class _HomeView2State extends State<HomeView2>{
     DataHolder().selectedChatRoom=chatRooms[index];
     Navigator.of(context).pushNamed("/ChatView");
   }
+
+  //------------------ INICIO GESTION DE PUSH NOTIFICATIONS FCM----------------
+
+  // It is assumed that all messages contain a data field with the key 'type'
+  Future<void> setupInteractedMessage() async {
+    // Get any messages which caused the application to open from
+    // a terminated state.
+    RemoteMessage? initialMessage =
+    await FirebaseMessaging.instance.getInitialMessage();
+
+    // If the message also contains a data property with a "type" of "chat",
+    // navigate to a chat screen
+    if (initialMessage != null) {
+      _handleMessage(initialMessage);
+    }
+
+    // Also handle any interaction when the app is in the background via a
+    // Stream listener
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+  }
+
+  void _handleMessage(RemoteMessage message) {
+    print("DEBUG: PISH NOTIFICATIONS RECIBIDO: "+message.data.toString());
+    /*if (message.data['type'] == 'chat') {
+      Navigator.pushNamed(context, '/chat',
+        arguments: ChatArguments(message),
+      );
+    }*/
+  }
+
+  //---------------------FIN GESTION DE PUSH NOTIFICATIONS------------------
 
   @override
   Widget build(BuildContext context) {

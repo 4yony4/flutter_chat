@@ -1,5 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_chat/src/fb_objects/Perfil2.dart';
 
@@ -22,6 +24,7 @@ class DataHolder{
   Perfil2 perfil= Perfil2();
   Room selectedChatRoom = Room();
   FBAdmin fbAdmin = FBAdmin();
+  late String? fcmToken="";
 
   late PlatformAdmin platformAdmin;
 
@@ -58,5 +61,56 @@ class DataHolder{
   bool isMIPerfilDownloaded(){
     return perfil!=null;
   }
+
+  Future<void> getFCMToken() async{
+    fcmToken = (await FirebaseMessaging.instance.getToken());
+    print("DEBUG: "+fcmToken.toString());
+
+    if(fcmToken!=null){
+      requestFCMPermission();
+    }
+    FirebaseMessaging.instance.onTokenRefresh
+        .listen((fcmToken) {
+      // TODO: If necessary send token to application server.
+      this.fcmToken=fcmToken;
+      // Note: This callback is fired at each app startup and whenever a new
+      // token is generated.
+    })
+        .onError((err) {
+      // Error getting token.
+    });
+    //print("DEBUG: GOT FCM TOKEN "+fcmToken.toString());
+  }
+
+  Future<void> requestFCMPermission() async{
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    print('DEBUG: User granted permission: ${settings.authorizationStatus}');
+
+    initForegroundMessages();
+  }
+
+  void initForegroundMessages(){
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
+  }
+
+
 
 }
