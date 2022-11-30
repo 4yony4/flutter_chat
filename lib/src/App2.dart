@@ -36,7 +36,7 @@ class App2 extends StatelessWidget{
         DataHolder().platformAdmin.isIOSPlatform()){
 
       materialAppMobile=MaterialApp(
-        initialRoute: '/Mapa1',
+        initialRoute: '/Splash',
         routes: {
           '/Login':(context) => LoginView2(),
           '/Registro':(context) => RegisterView(),

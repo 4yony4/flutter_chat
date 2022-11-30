@@ -22,6 +22,7 @@ class _SVLogoWaitState extends State<SVLogoWait> {
     // TODO: implement initState
     super.initState();
     //FirebaseAuth.instance.signOut();
+    DataHolder().getFCMToken();
     loadAllData();
 
   }
