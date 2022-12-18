@@ -31,7 +31,7 @@ class Perfil {
       edad: data?['edad'],
       friends: data?['friends'] is Iterable ? List.from(data?['friends']) : null,
       rooms: data?['rooms'] is Iterable ? List.from(data?['rooms']) : null,
-      uid: snapshot.id
+      uid: data?['uid'],
     );
   }
 

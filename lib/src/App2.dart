@@ -16,6 +16,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'fb_objects/Perfil2.dart';
 import 'home_views/ChatView.dart';
+import 'home_views/ContactsListView.dart';
 import 'home_views/HomeView2.dart';
 import 'login_views/RegisterView.dart';
 import 'login_views/SVLogoWait.dart';
@@ -45,6 +46,7 @@ class App2 extends StatelessWidget{
           '/Splash':(context) => const SVLogoWait("assets/images/logo2.png"),
           '/ChatView':(context) => ChatView(),
           '/Mapa1':(context) => MapSample(),
+          '/ContactsView':(context) => const ContactsListView()
 
         },
       );
@@ -63,6 +65,7 @@ class App2 extends StatelessWidget{
           '/OnBoarding':(context) => OnBoardingView2(),
           '/Splash':(context) => const SVLogoWait("assets/images/logo.jpg"),
           '/ChatView':(context) => ChatView(),
+          '/ContactsView':(context) => const ContactsListView()
 
         },
       );

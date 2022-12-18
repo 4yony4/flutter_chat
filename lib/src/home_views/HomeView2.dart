@@ -37,12 +37,10 @@ class _HomeView2State extends State<HomeView2>{
     super.initState();
     actualizarLista();
     setupInteractedMessage();
-    //getPilotosF1();
+    getPilotosF1();
   }
 
   void getPilotosF1() async{
-
-
     int iAnio=2022;
     final response = await http
         .get(Uri.parse('http://ergast.com/api/f1/${iAnio}/drivers.json'));
@@ -52,7 +50,7 @@ class _HomeView2State extends State<HomeView2>{
       // then parse the JSON.
 
       //print("DEBUG: --->>>>>>>>>   "+json.decode(response.body));
-      //print("DEBUG: --->>>>>>>>>   "+jsonDecode(response.body).toString());
+      print("DEBUG: --->>>>>>>>>   "+jsonDecode(response.body).toString());
       Map<String, dynamic> json=jsonDecode(response.body);
       //print("DEBUG: --->>>>>>>>>   "+json["MRData"].toString());
       Map<String, dynamic> json2=json["MRData"];
@@ -69,7 +67,7 @@ class _HomeView2State extends State<HomeView2>{
         listaPilotosFinal.add(PilotoF1.fromJson(listaPilotos2[i]));
       }
 
-      print("NOMBRE DEL PILOTO EN LA POSICION 10: "+listaPilotosFinal[10].givenName+"   "+listaPilotosFinal[10].familyName);
+      print("DEBUG: NOMBRE DEL PILOTO EN LA POSICION 10: "+listaPilotosFinal[10].givenName+"   "+listaPilotosFinal[10].familyName);
 
       //print("DEBUG: --->>>>>>>>>   "+json["MRData"]["DriverTable"]["Drivers"].toString());
 
@@ -106,6 +104,7 @@ class _HomeView2State extends State<HomeView2>{
   */
   void actualizarLista() async{
     final docRef = db.collection("rooms").
+        where("users",arrayContains: DataHolder().perfil1.uid).
     withConverter(fromFirestore: Room.fromFirestore,
         toFirestore: (Room room, _) => room.toFirestore());
 
@@ -179,6 +178,12 @@ class _HomeView2State extends State<HomeView2>{
               //return RFInputText2(sTitulo: "DIVISOR DEL: "+entries[index],);
             },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed("/ContactsView");
+
+        },
       ),
     );
   }

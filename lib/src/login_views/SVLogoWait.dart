@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/src/fb_objects/Perfil.dart';
 import 'package:flutter_chat/src/singleton/DataHolder.dart';
 
 class SVLogoWait extends StatefulWidget{
@@ -57,9 +58,12 @@ class _SVLogoWaitState extends State<SVLogoWait> {
   Future<bool> checkExistingProfile() async{
     String? idUser=FirebaseAuth.instance.currentUser?.uid;
     FirebaseFirestore db = FirebaseFirestore.instance;
-    final docRef = db.collection("perfiles").doc(idUser);
+    final docRef = db.collection("perfiles").doc(idUser)
+        .withConverter(fromFirestore: Perfil.fromFirestore,
+        toFirestore: (Perfil perfil, _) => perfil.toFirestore());
 
     DocumentSnapshot docsnap= await docRef.get();
+    DataHolder().perfil1=docsnap.data() as Perfil;
 
     return docsnap.exists;
   }

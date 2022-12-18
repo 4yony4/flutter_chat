@@ -25,6 +25,7 @@ class DataHolder{
   Room selectedChatRoom = Room();
   FBAdmin fbAdmin = FBAdmin();
   late String? fcmToken="";
+  Perfil perfil1= Perfil();
 
   late PlatformAdmin platformAdmin;
 
